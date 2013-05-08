@@ -2,6 +2,36 @@ package uk.ac.shu.webarch.eregister
 
 class Student {
 
-    static constraints = {
-    }
+  String fullStudentName
+  String studentNumber
+  String notes
+
+  
+  Set courses
+  Set classAtts
+
+  
+  static hasMany = [
+    courses: Enrollment,
+    classAtts: RegisterEntry
+  ]
+
+  static mappedBy = [
+    courses:'student',
+    classAtts:'student'
+  ]
+
+  /**
+   * TODO:
+   * Make the notes field use the "text" type, and name the column "student_notes" in the database
+   */
+  static constraints = {
+    fullStudentName(nullable:false, blank:false,maxSize:256);
+    studentNumber(nullable:false, blank:false,maxSize:256);
+  }
+
+static mapping = {
+notes column: 'student_notes', type: 'text'
+
+}
 }
